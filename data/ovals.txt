@@ -1,0 +1,6 @@
+oval1 0 0 4 2
+oval2 1 1 1 1 
+oval3 0 0 -3 2 
+badline abc 1 2 3
+oval4 0 0 2 2 
+oval5 0 0 3 -3
