@@ -6,7 +6,9 @@ import { DomainError } from "../errors/DomainError";
 import { logToFile, consoleLogger } from "./logger";
 
 export async function readOvalsFromFile(relPath: string) {
-  const filePath = path.isAbsolute(relPath) ? relPath : path.join(process.cwd(), relPath);
+  const filePath = path.isAbsolute(relPath)
+    ? relPath
+    : path.join(process.cwd(), relPath);
   const content = await fs.readFile(filePath, { encoding: "utf-8" });
   const lines = content.split(/\r?\n/).filter((l) => l.trim() !== "");
   const result = [];
@@ -31,16 +33,11 @@ export async function readOvalsFromFile(relPath: string) {
       result.push(oval);
     } catch (err) {
       try {
-        console.warn("Skipping invalid line", { err, line: raw });
         consoleLogger.warn({ err, line: raw }, "Skipping invalid line");
-      } catch (_) {
-        // swallow logging errors
-      }
+      } catch (_) {}
       try {
         logToFile.warn({ err, line: raw }, "Skipping invalid line");
-      } catch (_) {
-        // swallow logging errors
-      }
+      } catch (_) {}
       continue;
     }
   }

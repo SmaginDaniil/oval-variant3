@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { readOvalsFromFile } from "../src/utils/fileReader";
 import Oval from "../src/entities/Oval";
+import { consoleLogger } from "../src/utils/logger";
 
 describe("FileReader", () => {
   const testFilePath = path.join(__dirname, "test_ovals.txt");
@@ -27,7 +28,7 @@ oval3 0 0 2 2
   });
 
   test("skips invalid lines and logs warnings", async () => {
-    const spy = jest.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = jest.spyOn(consoleLogger, "warn").mockImplementation(() => {});
     await readOvalsFromFile(testFilePath);
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
